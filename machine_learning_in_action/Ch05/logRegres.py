@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 
 from numpy import *
 
@@ -31,7 +31,7 @@ def plotBestFit(weights):
     import matplotlib.pyplot as plt
     dataMat,labelMat=loadDataSet()
     dataArr = array(dataMat)
-    n = shape(dataArr)[0] 
+    n = shape(dataArr)[0]
     xcord1 = []; ycord1 = []
     xcord2 = []; ycord2 = []
     for i in range(n):
@@ -65,7 +65,7 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
     for j in range(numIter):
         dataIndex = range(m)
         for i in range(m):
-            alpha = 4/(1.0+j+i)+0.0001    #apha decreases with iteration, does not 
+            alpha = 4/(1.0+j+i)+0.0001    #apha decreases with iteration, does not
             randIndex = int(random.uniform(0,len(dataIndex)))#go to 0 because of the constant
             h = sigmoid(sum(dataMatrix[randIndex]*weights))
             error = classLabels[randIndex] - h
@@ -107,4 +107,5 @@ def multiTest():
     for k in range(numTests):
         errorSum += colicTest()
     print "after %d iterations the average error rate is: %f" % (numTests, errorSum/float(numTests))
+
 

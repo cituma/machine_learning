@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 
 from math import log
 import operator
@@ -46,7 +46,7 @@ def chooseBestFeatureToSplit(dataSet):
         for value in uniqueVals:
             subDataSet = splitDataSet(dataSet, i, value)
             prob = len(subDataSet)/float(len(dataSet))
-            newEntropy += prob * calcShannonEnt(subDataSet)     
+            newEntropy += prob * calcShannonEnt(subDataSet)
         infoGain = baseEntropy - newEntropy     #calculate the info gain; ie reduction in entropy
         if (infoGain > bestInfoGain):       #compare this to the best gain so far
             bestInfoGain = infoGain         #if better than current best, set to best
@@ -63,7 +63,7 @@ def majorityCnt(classList):
 
 def createTree(dataSet,labels):
     classList = [example[-1] for example in dataSet]
-    if classList.count(classList[0]) == len(classList): 
+    if classList.count(classList[0]) == len(classList):
         return classList[0]#stop splitting when all of the classes are equal
     if len(dataSet[0]) == 1: #stop splitting when there are no more features in dataSet
         return majorityCnt(classList)
@@ -77,7 +77,7 @@ def createTree(dataSet,labels):
         subLabels = labels[:]       #copy all of labels, so trees don't mess up existing labels
         myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)
     return myTree
-    
+
 def classify(inputTree,featLabels,testVec):
     firstStr = inputTree.keys()[0]
     secondDict = inputTree[firstStr]
@@ -94,10 +94,9 @@ def storeTree(inputTree,filename):
     fw = open(filename,'w')
     pickle.dump(inputTree,fw)
     fw.close()
-    
+
 def grabTree(filename):
     import pickle
     fr = open(filename)
     return pickle.load(fr)
-
 

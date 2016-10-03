@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 
 from numpy import *
 
@@ -11,7 +11,7 @@ def loadDataSet():
                  ['quit', 'buying', 'worthless', 'dog', 'food', 'stupid']]
     classVec = [0,1,0,1,0,1]    #1 is abusive, 0 not
     return postingList,classVec
-                 
+
 def createVocabList(dataSet):
     vocabSet = set([])  #create empty set
     for document in dataSet:
@@ -30,7 +30,7 @@ def trainNB0(trainMatrix,trainCategory):
     numTrainDocs = len(trainMatrix)
     numWords = len(trainMatrix[0])
     pAbusive = sum(trainCategory)/float(numTrainDocs)
-    p0Num = ones(numWords); p1Num = ones(numWords)      #change to ones() 
+    p0Num = ones(numWords); p1Num = ones(numWords)      #change to ones()
     p0Denom = 2.0; p1Denom = 2.0                        #change to 2.0
     for i in range(numTrainDocs):
         if trainCategory[i] == 1:
@@ -48,9 +48,9 @@ def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
     if p1 > p0:
         return 1
-    else: 
+    else:
         return 0
-   
+
 def bagOfWords2VecMN(vocabList, inputSet):
     returnVec = [0]*len(vocabList)
     for word in inputSet:
@@ -75,8 +75,8 @@ def testingNB():
 def textParse(bigString):    #input is big string, #output is word list
     import re
     listOfTokens = re.split(r'\W*', bigString)
-    return [tok.lower() for tok in listOfTokens if len(tok) > 2] 
-    
+    return [tok.lower() for tok in listOfTokens if len(tok) > 2]
+
 def spamTest():
     docList=[]; classList = []; fullText =[]
     for i in range(1,26):
@@ -93,7 +93,7 @@ def spamTest():
     for i in range(10):
         randIndex = int(random.uniform(0,len(trainingSet)))
         testSet.append(trainingSet[randIndex])
-        del(trainingSet[randIndex])  
+        del(trainingSet[randIndex])
     trainMat=[]; trainClasses = []
     for docIndex in trainingSet:#train the classifier (get probs) trainNB0
         trainMat.append(bagOfWords2VecMN(vocabList, docList[docIndex]))
@@ -107,8 +107,5 @@ def spamTest():
             print "classification error",docList[docIndex]
     print 'the error rate is: ',float(errorCount)/len(testSet)
     #return vocabList,fullText
-
-
-
 
 
